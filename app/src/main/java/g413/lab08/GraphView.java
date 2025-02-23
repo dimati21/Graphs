@@ -8,30 +8,54 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
+import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
+
 import g413.lab08.sampledata.Link;
 import g413.lab08.sampledata.Node;
+import g413.lab08.services.ApiService;
 
 public class GraphView extends SurfaceView {
-    Graph g = new Graph();
+
+    public Graph g = new Graph();
     Paint p;
 
     int selected1 = -1;
     int selected2 = -1;
     int lastHit = -1;
+    Node na;
+    Node nb;
 
-    float rad = 10.0f;
-    float halfside = 5.0f;
+    float rad = 50.0f;
+    float halfside = 25.0f;
 
     float last_x;
     float last_y;
 
+
+    public void add_nodes_list(List<Node> nodes){
+        for (Node n : nodes) {
+            g.add_node(n.x, n.y, n.id);
+        }
+        invalidate();
+    }
+    public void add_links_list(List<Link> links){
+        for (Link l : links) {
+            g.add_link(l.source, l.target, l.id);
+        }
+        invalidate();
+    }
+
+
+
     public void add_node() {
-        g.add_node(100.0f, 100.0f);
+        g.add_node(100.0f, 100.0f, (max_node_id(g.node) + 1));
         invalidate();
     }
 
     public void remove_selected_node() {
-        if (selected1 < 0) return;
+        if (selected1 == -1) return;
         g.remove_node(selected1);
         selected1 = -1;
         invalidate();
@@ -40,9 +64,21 @@ public class GraphView extends SurfaceView {
     public void link_selected_nodes() {
         if (selected1 < 0) return;
         if (selected2 < 0) return;
-        g.add_link(selected1, selected2);
+        Node tmp1 = g.node.get(selected1);
+        Node tmp2 = g.node.get(selected2);
+        g.add_link(tmp1.getId(), tmp2.getId(), (max_link_id(g.link) + 1));
         invalidate();
     }
+
+    public void remove_selected_link() {
+        if (selected1 < 0 || selected2 < 0) return;
+        Node tmp1 = g.node.get(selected1);
+        Node tmp2 = g.node.get(selected2);
+        g.remove_link(tmp1.getId(), tmp2.getId());
+        invalidate();
+    }
+
+
 
     public GraphView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -53,8 +89,8 @@ public class GraphView extends SurfaceView {
     public int get_link_at_xy(float x, float y) {
         for (int i = 0; i < g.link.size(); i++) {
             Link l = g.link.get(i);
-            Node na = g.node.get(l.a);
-            Node nb = g.node.get(l.b);
+            Node na = g.node.get(l.source);
+            Node nb = g.node.get(l.target);
             float bx = (na.x + nb.x) * 0.5f;
             float by = (na.y + nb.y) * 0.5f;
             if (x >= bx - halfside && x <= bx + halfside && y >= by - halfside && y <= by + halfside) return i;
@@ -85,8 +121,12 @@ public class GraphView extends SurfaceView {
                     selected1 = -1;
                     selected2 = -1;
                 } else {
-                    if (selected1 >= 0) selected2 = i;
-                    else selected1 = i;
+                    if (selected1 >= 0){
+                        selected2 = i;
+                    }
+                    else{
+                        selected1 = i;
+                    }
                 }
                 last_x = x;
                 last_y = y;
@@ -113,11 +153,13 @@ public class GraphView extends SurfaceView {
     @Override
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.rgb(255, 255, 255));
-
         for (int i = 0; i < g.link.size(); i++) {
             Link l = g.link.get(i);
-            Node na = g.node.get(l.a);
-            Node nb = g.node.get(l.b);
+            for (int j = 0; j < g.node.size(); j++){
+                Node n = g.node.get(j);
+                if (n.getId() == l.source) na = n;
+                if (n.getId() == l.target) nb = n;
+            }
             p.setColor(Color.argb(127, 0, 0, 0));
             canvas.drawLine(na.x, na.y, nb.x, nb.y, p);
             float bx = (na.x + nb.x) * 0.5f;
@@ -148,5 +190,14 @@ public class GraphView extends SurfaceView {
 
             canvas.drawCircle(n.x, n.y, rad, p);
         }
+    }
+
+
+    public int max_node_id(List<Node> lst){
+        return lst.stream().mapToInt(Node::getId).max().orElse(0);
+    }
+
+    public int max_link_id(List<Link> lst){
+        return lst.stream().mapToInt(Link::getId).max().orElse(0);
     }
 }

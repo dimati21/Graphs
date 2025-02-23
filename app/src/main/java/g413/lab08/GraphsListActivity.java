@@ -130,8 +130,10 @@ public class GraphsListActivity extends AppCompatActivity {
         if(selected == -1)
             makeToast("Select graph");
         else {
+            Graphs tmp = adapter.getItem(selected);
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("token", token);
+            intent.putExtra("graphId", tmp.getId());
             startActivityForResult(intent, 1);
         }
     }

@@ -29,7 +29,8 @@
             android:backgroundTint="#6FC379"
             app:iconTint="@color/black"
             app:icon="@drawable/ic_save"
-            android:id="@+id/savegraf"/>
+            android:id="@+id/savegraf"
+            android:onClick="onSave_Main"/>
         <com.google.android.material.button.MaterialButton
             android:layout_width="60dp"
             android:layout_height="65dp"
@@ -43,7 +44,8 @@
             android:backgroundTint="#6FC379"
             app:iconTint="@color/black"
             app:icon="@drawable/ic_menu"
-            android:id="@+id/btnList"/>
+            android:id="@+id/btnList"
+            android:onClick="onBack_Main"/>
     </LinearLayout>
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
@@ -81,7 +83,7 @@
                 android:scaleType="fitCenter"
                 android:padding="10dp"
                 android:background="@drawable/button_bg"
-                />
+                android:onClick="onAddLink_Main"/>
             <ImageButton
                 android:layout_width="100dp"
                 android:layout_height="53dp"
@@ -93,7 +95,7 @@
                 android:scaleType="fitCenter"
                 android:padding="10dp"
                 android:background="@drawable/button_bg"
-                />
+                android:onClick="onDeleteLink_Main"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,7 +114,8 @@
                 android:backgroundTint="#6FC379"
                 app:iconTint="@color/black"
                 app:icon="@drawable/ic_newnode"
-                android:id="@+id/btnAddNode"/>
+                android:id="@+id/btnAddNode"
+                android:onClick="onAddNode_Main"/>
             <com.google.android.material.button.MaterialButton
                 android:layout_width="100dp"
                 android:layout_height="60dp"
@@ -125,7 +128,8 @@
                 android:backgroundTint="#6FC379"
                 app:iconTint="@color/black"
                 app:icon="@drawable/ic_delnode"
-                android:id="@+id/btnDelNode"/>
+                android:id="@+id/btnDelNode"
+                android:onClick="onDeleteNode_Main"/>
 
         </LinearLayout>
     </LinearLayout>

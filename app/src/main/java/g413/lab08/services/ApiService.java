@@ -1,6 +1,8 @@
 package g413.lab08.services;
 import java.util.List;
 
+import g413.lab08.sampledata.Link;
+import g413.lab08.sampledata.Node;
 import retrofit2.Call;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
@@ -34,4 +36,42 @@ public interface ApiService {
     Call<String> update_graph(@Query("token") String token,
                               @Query("name") String name,
                               @Query("id") String id);
+
+    @GET("/nodes/node-list")
+    Call<List<Node>> get_nodes(@Query("token") String token,
+                               @Query("id") String id);
+
+    @GET("/links/link-list")
+    Call<List<Link>> get_links(@Query("token") String token,
+                               @Query("id") String id);
+
+    @POST("/nodes/update")
+    Call<String> update_node(@Query("token") String token,
+                            @Query("graphid") String graphid,
+                            @Query("nodeid") int nodeid,
+                            @Query("x") float x,
+                            @Query("y") float y,
+                            @Query("name") String name);
+
+    @DELETE("/nodes/delete")
+    Call<String> delete_node(@Query("token") String token,
+                            @Query("id") int nodeid);
+
+    @PUT("/nodes/add")
+    Call<String> add_node(@Query("token") String token,
+                         @Query("id") String graphid,
+                         @Query("x") float x,
+                         @Query("y") float y,
+                         @Query("name") String name);
+
+    @DELETE("/links/delete")
+    Call<String> delete_link(@Query("token") String token,
+                             @Query("id") int nodeid);
+
+    @PUT("/links/add")
+    Call<String> add_link(@Query("token") String token,
+                          @Query("id") String graphid,
+                          @Query("source") int source,
+                          @Query("target") int target,
+                          @Query("value") int value);
 }
