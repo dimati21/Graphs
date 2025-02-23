@@ -21,7 +21,6 @@ import com.google.gson.JsonIOException;
 import java.io.IOException;
 
 import g413.lab08.services.ApiService;
-import g413.lab08.services.User;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -50,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.101:5000/")
+                .baseUrl("http://192.168.0.101:5000")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

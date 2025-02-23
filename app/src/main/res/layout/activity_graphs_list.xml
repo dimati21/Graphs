@@ -10,6 +10,7 @@
         <com.google.android.material.button.MaterialButton
             android:layout_width="60dp"
             android:layout_height="65dp"
+            android:onClick="onLogout_ListGraphs"
             app:cornerRadius="10dp"
             android:layout_gravity="end"
             app:iconSize="32dp"
@@ -27,7 +28,7 @@
         android:layout_height="2dp"
         app:dividerColor="@color/black"/>
     <ListView
-        android:id="@+id/list_nodes"
+        android:id="@+id/list_graphs"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"/>
@@ -56,7 +57,7 @@
             app:iconTint="@color/black"
             app:icon="@drawable/ic_trash"
             android:id="@+id/delgraf"
-            />
+            android:onClick="onDelete_ListGraphs"/>
         <com.google.android.material.button.MaterialButton
             android:layout_width="60dp"
             android:layout_height="65dp"
@@ -69,7 +70,8 @@
             android:backgroundTint="#6FC379"
             app:iconTint="@color/black"
             app:icon="@drawable/ic_load"
-            android:id="@+id/loadgraf"/>
+            android:id="@+id/loadgraf"
+            android:onClick="onLoad_ListGraphs"/>
         <com.google.android.material.button.MaterialButton
             android:layout_width="60dp"
             android:layout_height="65dp"
@@ -81,20 +83,8 @@
             android:layout_marginTop="20dp"
             android:backgroundTint="#6FC379"
             app:iconTint="@color/black"
-            app:icon="@drawable/ic_save"
-            android:id="@+id/savegraf"/>
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="60dp"
-            android:layout_height="65dp"
-            app:cornerRadius="10dp"
-            android:layout_gravity="end"
-            app:iconSize="32dp"
-            app:iconGravity="textStart"
-            android:paddingStart="32dp"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="#6FC379"
-            app:iconTint="@color/black"
-            app:icon="@drawable/ic_edit"/>
+            app:icon="@drawable/ic_edit"
+            android:onClick="onEdit_ListGraphs"/>
         <com.google.android.material.button.MaterialButton
             android:layout_width="60dp"
             android:layout_height="65dp"
@@ -107,7 +97,8 @@
             android:backgroundTint="#6FC379"
             app:iconTint="@color/black"
             android:id="@+id/addgraf"
-            app:icon="@drawable/ic_plus"/>
+            app:icon="@drawable/ic_plus"
+            android:onClick="onAdd_ListGraphs"/>
     </com.google.android.flexbox.FlexboxLayout>
 
 </LinearLayout>

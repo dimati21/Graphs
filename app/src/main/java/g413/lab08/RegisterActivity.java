@@ -1,6 +1,5 @@
 package g413.lab08;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
@@ -19,10 +18,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 
 import java.io.IOException;
-import java.util.List;
 
 import g413.lab08.services.ApiService;
-import g413.lab08.services.User;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
