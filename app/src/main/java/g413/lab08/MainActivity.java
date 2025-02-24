@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.0.101:5000/")
+                .baseUrl("http://192.168.43.131:5000/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         gv.add_nodes_list(get_nodes_from_server());
         gv.add_links_list(get_links_from_server());
-
+        gv.maxid = getMaxId() + 1;
     }
 
     public void onAddNode_Main(View v)
@@ -271,6 +271,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public int getMaxId(){
+        Call<Integer> maxid = service.max_nodeid();
+        try {
+            return maxid.execute().body();
+        } catch (JsonIOException | IOException e) {
+            Log.e("ddddddd", "dddddddddddd");
+        }
+        return -1;
+    }
 
 
 }

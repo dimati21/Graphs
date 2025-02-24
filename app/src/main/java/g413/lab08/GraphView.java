@@ -27,6 +27,8 @@ public class GraphView extends SurfaceView {
     Node na;
     Node nb;
 
+    int maxid;
+
     float rad = 50.0f;
     float halfside = 25.0f;
 
@@ -50,7 +52,8 @@ public class GraphView extends SurfaceView {
 
 
     public void add_node() {
-        g.add_node(100.0f, 100.0f, (max_node_id(g.node) + 1));
+        g.add_node(100.0f, 100.0f, maxid);
+        maxid += 1;
         invalidate();
     }
 

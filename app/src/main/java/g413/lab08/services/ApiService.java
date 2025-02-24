@@ -74,4 +74,7 @@ public interface ApiService {
                           @Query("source") int source,
                           @Query("target") int target,
                           @Query("value") int value);
+
+    @GET("/maxID")
+    Call<Integer> max_nodeid();
 }
