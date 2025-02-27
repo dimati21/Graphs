@@ -50,7 +50,7 @@ public class RegisterActivity extends AppCompatActivity {
         StrictMode.setThreadPolicy(policy);
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.43.131:5000/")
+                .baseUrl("https://84aadc26-3088-43c1-b2b0-4a5cebf88fcb-00-3oxzq4o504g05.pike.replit.dev/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();

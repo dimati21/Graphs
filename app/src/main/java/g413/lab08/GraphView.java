@@ -172,6 +172,10 @@ public class GraphView extends SurfaceView {
             float x1 = bx + halfside;
             float y1 = by + halfside;
             canvas.drawRect(x0, y0, x1, y1, p);
+            float nax = na.x - nb.x;
+            float nay = na.y - nb.y;
+            String txt = Float.toString(Math.round(Math.sqrt((float) Math.abs(Math.pow(nax, 2) + Math.pow(nay, 2)))));
+            canvas.drawText(txt, bx - 10, by, p);
         }
 
         for (int i = 0; i < g.node.size(); i++) {

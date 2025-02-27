@@ -60,7 +60,7 @@ public class GraphsListActivity extends AppCompatActivity {
                 .create();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.43.131:5000/")
+                .baseUrl("https://84aadc26-3088-43c1-b2b0-4a5cebf88fcb-00-3oxzq4o504g05.pike.replit.dev/")
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
@@ -105,25 +105,29 @@ public class GraphsListActivity extends AppCompatActivity {
     }
 
     public void onDelete_ListGraphs(View v) {
-        Graphs tmp = adapter.getItem(selected);
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Вы уверены?");
-        dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+        if(selected == -1)
+            makeToast("Select graph");
+        else {
+            Graphs tmp = adapter.getItem(selected);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setTitle("Вы уверены?");
+            dialog.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-                Call<String> delGraphs = service.delete_graph(token, tmp.getId());
-                try {
-                    String r = delGraphs.execute().body();
-                    makeToast(r);
-                    updateList();
-                } catch (JsonIOException | IOException e) {
-                    Log.e("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH", e.toString());
+                    Call<String> delGraphs = service.delete_graph(token, tmp.getId());
+                    try {
+                        String r = delGraphs.execute().body();
+                        makeToast(r);
+                        updateList();
+                    } catch (JsonIOException | IOException e) {
+                        Log.e("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH", e.toString());
+                    }
                 }
-            }
-        });
-        dialog.setNegativeButton("Нет", null);
-        dialog.show();
+            });
+            dialog.setNegativeButton("Нет", null);
+            dialog.show();
+        }
     }
 
     public void onLoad_ListGraphs(View v){
@@ -139,13 +143,17 @@ public class GraphsListActivity extends AppCompatActivity {
     }
 
     public void onEdit_ListGraphs(View v){
-        Graphs tmp = adapter.getItem(selected);
-        Intent intent = new Intent(this, CreateGraphActivity.class);
-        intent.putExtra("token", token);
-        intent.putExtra("action", "edit");
-        intent.putExtra("id", tmp.getId());
-        intent.putExtra("name", tmp.toString());
-        startActivityForResult(intent, 1);
+        if(selected == -1)
+            makeToast("Select graph");
+        else {
+            Graphs tmp = adapter.getItem(selected);
+            Intent intent = new Intent(this, CreateGraphActivity.class);
+            intent.putExtra("token", token);
+            intent.putExtra("action", "edit");
+            intent.putExtra("id", tmp.getId());
+            intent.putExtra("name", tmp.toString());
+            startActivityForResult(intent, 1);
+        }
     }
     public void onAdd_ListGraphs(View v){
         Intent intent = new Intent(this, CreateGraphActivity.class);
